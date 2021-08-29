@@ -40,10 +40,10 @@ StackedBarplot <- function(object, features, assay = "RNA", slot = "data", group
   df_long$value <- as.numeric(df_long$value)
   df_long$features <- factor(df_long$features, levels = features)
 
-  p <- ggplot(df_long, aes_string(x = "cells", y = "value", fill = all_of(group.by), color = all_of(group.by))) +
-    geom_bar(stat = "identity") +
-    facet_grid(reformulate(group.by, "features")) +
-    theme(
+  p <- ggplot2::ggplot(df_long, aes_string(x = "cells", y = "value", fill = all_of(group.by), color = all_of(group.by))) +
+    ggplot2::geom_bar(stat = "identity") +
+    ggplot2::facet_grid(reformulate(group.by, "features")) +
+    ggplot2::theme(
       panel.background = element_blank(),
       axis.text = element_blank(),
       strip.text.y = element_text(angle = 0),

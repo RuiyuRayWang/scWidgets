@@ -32,7 +32,6 @@ StackedBarplot <- function(object, features, assay = "RNA", slot = "data", group
 
   df <- dplyr::left_join(df, groups, by = "cells")
   df <- tibble::column_to_rownames(df, var = "cells")
-  # df <- t(df)
 
   df_long <- tibble::rownames_to_column(df, var = "cells")
   df_long <- tidyr::pivot_longer(df_long, cols = -c("cells",all_of(group.by)), names_to = "features", values_to = "value")
@@ -40,15 +39,15 @@ StackedBarplot <- function(object, features, assay = "RNA", slot = "data", group
   df_long$value <- as.numeric(df_long$value)
   df_long$features <- factor(df_long$features, levels = features)
 
-  p <- ggplot2::ggplot(df_long, aes_string(x = "cells", y = "value", fill = all_of(group.by), color = all_of(group.by))) +
+  p <- ggplot2::ggplot(df_long, ggplot2::aes_string(x = "cells", y = "value", fill = group.by, color = group.by)) +
     ggplot2::geom_bar(stat = "identity") +
     ggplot2::facet_grid(reformulate(group.by, "features")) +
     ggplot2::theme(
-      panel.background = element_blank(),
-      axis.text = element_blank(),
-      strip.text.y = element_text(angle = 0),
-      axis.ticks = element_blank(),
-      axis.line.x.bottom = element_line(),
+      panel.background = ggplot2::element_blank(),
+      axis.text = ggplot2::element_blank(),
+      strip.text.y = ggplot2::element_text(angle = 0),
+      axis.ticks = ggplot2::element_blank(),
+      axis.line.x.bottom = ggplot2::element_line(),
       legend.position = "none"
       )
 

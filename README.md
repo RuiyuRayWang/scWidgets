@@ -1,2 +1,3 @@
 # scWidgets
-A collection of scRNAseq functions re-written for easy analysis using the Seurat objects
+A collection of R functions written for extended analysis of scRNA-seq datasets.
+Mainly operating with Seurat objects.

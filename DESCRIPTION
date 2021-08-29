@@ -1,0 +1,24 @@
+Package: scWidgets
+Type: Package
+Title: A collection of scRNAseq analysis functions
+Version: 0.1.0
+Author: Ruiyu Ray Wang
+Maintainer: Ruiyu Ray Wang <wangruiyu@nibs.ac.cn>
+Description: A collection of scRNAseq analysis functions re-written for inter-operabilty with Seurat objects.
+License: everyone
+Imports: Seurat,
+         SeuratObject,
+         grid,
+         rlang,
+         ggplot2,
+         scales,
+         cluster,
+         RColorBrewer,
+         reticulate,
+         tidyr,
+         tibble,
+         dplyr,
+         rsvd
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.1.1

@@ -9,12 +9,17 @@
 #' circumvent this, we attach a digit to the Symbols.
 #'
 #' @param data A dataframe, rows are features named as Ensembl IDs, columns are cells.
-#' @param anno Annotation table. Used to search mapping relationships between Ensembl IDs and Symbols.
-#' @return A dataframe, rows are features renamed as gene Symbols.
+#' @param anno Annotation table. Columns should be named as c("ensembl_id","symbol"). Used to search mapping relationships between Ensembl IDs and Symbols.
+#' @return A dataframe, rows are features renamed as gene Symbols, with an extra column of Ensembl IDs after names are mapped.
 #' @export
 #'
 renameRows <- function(df, anno){
-  df <- dplyr::slice(df, -which(!rownames(df) %in% anno$ensembl_id))  # df may contain rows not in the annotation table. Remove these rows.
+  stopifnot(is.data.frame(df))
+  stopifnot("ensembl_id" %in% colnames(anno) | "symbol" %in% colnames(anno))
+
+  if(any(!rownames(df) %in% anno$ensembl_id)){
+    df <- dplyr::slice(df, -which(!rownames(df) %in% anno$ensembl_id))  # df may contain rows not in the annotation table. Remove these rows.
+  }
   rn <- rownames(df)
   rn <- anno[match(rn,anno$ensembl_id),"symbol"]
   dup <- rn[duplicated(rn)]
